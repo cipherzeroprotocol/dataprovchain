@@ -1,0 +1,24 @@
+tags:
+  - name: Authentication
+    description: User authentication endpoints
+  
+  - name: Users
+    description: User management endpoints
+  
+  - name: Datasets
+    description: Dataset management endpoints
+  
+  - name: Provenance
+    description: Provenance tracking endpoints
+  
+  - name: Marketplace
+    description: Marketplace related endpoints
+  
+  - name: Attribution
+    description: Attribution and royalty endpoints
+  
+  - name: DAO
+    description: Governance-related endpoints
+  
+  - name: Filecoin
+    description: Filecoin integration endpoints

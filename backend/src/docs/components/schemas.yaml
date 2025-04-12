@@ -1,0 +1,291 @@
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [error]
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+    
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+          nullable: true
+        walletAddress:
+          type: string
+        bio:
+          type: string
+          nullable: true
+        avatarUrl:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum: [user, admin]
+        verified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+    
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        dataType:
+          type: string
+        cid:
+          type: string
+        tokenId:
+          type: string
+          nullable: true
+        metadataUri:
+          type: string
+          nullable: true
+        license:
+          type: string
+        creator:
+          type: string
+        fileSize:
+          type: integer
+          format: int64
+          nullable: true
+        verified:
+          type: boolean
+        verifier:
+          type: string
+          nullable: true
+        verifiedAt:
+          type: string
+          format: date-time
+          nullable: true
+        dealId:
+          type: string
+          nullable: true
+        dealConfirmed:
+          type: boolean
+        contributors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contributor'
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+    
+    Contributor:
+      type: object
+      properties:
+        id:
+          type: string
+        share:
+          type: number
+          format: float
+        name:
+          type: string
+          nullable: true
+    
+    ProvenanceRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        datasetId:
+          type: string
+          format: uuid
+        actionType:
+          type: string
+          enum: [creation, modification, derivation, usage, verification, transfer, storage_confirmed, storage_failed]
+        performedBy:
+          type: string
+        description:
+          type: string
+        metadata:
+          type: object
+          nullable: true
+        ipfsCid:
+          type: string
+          nullable: true
+        transactionHash:
+          type: string
+          nullable: true
+        previousRecordId:
+          type: string
+          format: uuid
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    
+    Listing:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        datasetId:
+          type: string
+          format: uuid
+        onChainId:
+          type: string
+          nullable: true
+        price:
+          type: string
+        priceInEther:
+          type: string
+        licenseType:
+          type: string
+          enum: [research, commercial, educational, personal]
+        duration:
+          type: integer
+        seller:
+          type: string
+        terms:
+          type: object
+          nullable: true
+        status:
+          type: string
+          enum: [active, sold, cancelled, expired]
+        expiresAt:
+          type: string
+          format: date-time
+        transactionHash:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    
+    Purchase:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        listingId:
+          type: string
+          format: uuid
+        datasetId:
+          type: string
+          format: uuid
+        buyer:
+          type: string
+        price:
+          type: string
+        priceInEther:
+          type: string
+        licenseType:
+          type: string
+          enum: [research, commercial, educational, personal]
+        duration:
+          type: integer
+        expiresAt:
+          type: string
+          format: date-time
+        transactionHash:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        access:
+          type: object
+          properties:
+            token:
+              type: string
+            expiresAt:
+              type: string
+              format: date-time
+    
+    Proposal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        proposalType:
+          type: string
+          enum: [parameter_change, funds_allocation, whitelist_addition, other]
+        parameters:
+          type: object
+          nullable: true
+        proposer:
+          type: string
+        status:
+          type: string
+          enum: [active, closed, executed, cancelled]
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        votes:
+          type: object
+          properties:
+            for:
+              type: integer
+            against:
+              type: integer
+            total:
+              type: integer
+        createdAt:
+          type: string
+          format: date-time
+    
+    Vote:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        proposalId:
+          type: string
+          format: uuid
+        voter:
+          type: string
+        support:
+          type: boolean
+        reason:
+          type: string
+          nullable: true
+        transactionHash:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time

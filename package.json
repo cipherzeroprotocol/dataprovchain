@@ -1,0 +1,78 @@
+{
+  "name": "dataprovchain",
+  "version": "1.0.0",
+  "description": "Blockchain-based platform for AI data provenance, attribution, and royalty distribution",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "backend",
+    "frontend",
+    "filecoin"
+  ],
+  "scripts": {
+    "postinstall": "npm run install:deps",
+    "install:deps": "npm install --no-save concurrently cross-env && npm run install:components",
+    "install:all": "npm install && npm run install:components",
+    "install:components": "npm run install:backend && npm run install:frontend && npm run install:filecoin",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:filecoin": "cd filecoin && npm install",
+    "install:hardhat": "npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox @nomicfoundation/hardhat-network-helpers @nomicfoundation/hardhat-chai-matchers chai ethers@^6.4.0 hardhat-gas-reporter solidity-coverage @typechain/hardhat typechain @typechain/ethers-v6",
+    "start": "node scripts/run-services.js",
+    "dev": "node scripts/run-services.js --dev",
+    "start:backend": "cd backend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm start",
+    "build:frontend": "cd frontend && npm run build",
+    "setup:db": "cd backend && npm run setup",
+    "migrate": "cd backend && npm run migrate",
+    "seed": "cd backend && sequelize-cli db:seed:all",
+    "test": "node scripts/run-tests.js",
+    "test:backend": "cd backend && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "test:filecoin": "cd filecoin && npm test",
+    "lint": "node scripts/run-lint.js",
+    "lint:backend": "cd backend && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint || echo 'No lint script available'",
+    "lint:filecoin": "cd filecoin && npm run lint",
+    "deploy:contracts": "npm run install:hardhat && cd scripts/deploy && node deployAll.js",
+    "docker:up": "cd backend && docker-compose up -d",
+    "docker:down": "cd backend && docker-compose down"
+  },
+  "keywords": [
+    "blockchain",
+    "data-provenance",
+    "filecoin",
+    "ethereum",
+    "ai-datasets",
+    "royalty-distribution",
+    "data-attribution"
+  ],
+  "author": "DataProvChain Team",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "9.1.2",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.12",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@zondax/filecoin-solidity": "^4.0.3",
+    "chai": "^4.3.7",
+    "ethers": "^6.4.0",
+    "hardhat": "^2.23.0",
+    "hardhat-gas-reporter": "^2.2.2",
+    "husky": "9.1.7",
+    "lint-staged": "^15.2.0",
+    "solidity-coverage": "^0.8.14",
+    "typechain": "^8.3.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
